@@ -1,0 +1,2 @@
+{'status': 'malicious', 'message': 'Malicious Request Detected (ML Prediction)', 'features': [19, 0, 0, 3.7871439606981383, 0.0, 0.0, 0.0, 0]}
+{'status': 'malicious', 'message': 'Malicious Request Detected (ML-Based)', 'features': [4, 0, 0, 2.0, 0.0, 0.0, 0.0, 0]}
