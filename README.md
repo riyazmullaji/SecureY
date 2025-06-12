@@ -1,46 +1,71 @@
-# SecureY - AI-Powered Web Application Firewall
+# Hybrid Web Application Firewall (SecureY)
 
-SecureY is an advanced Web Application Firewall (WAF) that combines signature-based detection with machine learning to protect against known and unknown threats.
+## 📌 Project Overview
 
-## Features
+**SecureY** is a **Hybrid Web Application Firewall (WAF)** specifically tailored to detect and prevent both known and unknown cyberattacks on **e-commerce platforms**. The system integrates a traditional signature-based detection mechanism with a machine-learning-based anomaly detection model (LightGBM) to enhance web application security.
 
-- 🛡️ Real-time request analysis
-- 🤖 AI-powered threat detection
-- ✨ Modern, responsive UI
-- 📊 Interactive security insights
-- 🚀 Fast response time
+## Problem
 
-## Tech Stack
+Modern e-commerce platforms are frequently targeted by:
+- SQL Injection (SQLi)
+- Cross-Site Scripting (XSS)
+- Zero-day exploits
 
-- Python/Flask
-- JavaScript
-- HTML/CSS
-- Machine Learning
+Traditional WAFs rely on **static rules and signature matching**, making them ineffective against **evolving threats and obfuscation techniques**. Our approach overcomes these limitations by combining the speed of rule-based filtering with the intelligence of ML-driven anomaly detection.
 
-## Setup
 
-1. Clone the repository:
-\`\`\`bash
-git clone https://github.com/YOUR_USERNAME/SecureY.git
-cd SecureY
-\`\`\`
+## Architecure Diagram
+![SecureY Architecture](./SecureY.gif)
 
-2. Install dependencies:
-\`\`\`bash
-pip install -r requirements.txt
-\`\`\`
 
-3. Run the application:
-\`\`\`bash
-python run.py
-\`\`\`
+##  Core Features
 
-## License
+- **Layered Detection**:
+  - **Signature Layer**: Detects known threats using pre-defined rules
+  - **AI Layer**: Uses LightGBM to flag anomalous traffic patterns
+- **Optimized for e-commerce** HTTP behavior
+- **Efficient Logging** of all HTTP requests and detection decisions
 
-MIT License
-" > README.md
 
-# Add and commit README
-git add README.md
-git commit -m "Add README.md"
-git push
+##  Dataset Used
+
+- **Dataset**: CSIC 2010 HTTP Dataset
+- **Content**:
+  - Realistic GET, POST, PUT requests
+  - Includes SQLi, XSS, and other attack vectors
+- **Key Extracted Features**:
+  - `Parameter Lengths`
+  - `Payload Entropy`
+  - `Numeric-to-Text Ratio`
+  - `Special Character Density`
+
+> ❌ URI-related features were excluded due to low discriminative power in EDA.
+
+##  Methodology
+
+```text
+Incoming HTTP Request
+        │
+        ▼
+ ┌─────────────┐
+ │ Rule Engine │  ← Signature-based filtering (Layer 1)
+ └─────────────┘
+        │
+        ▼
+ ┌──────────────────────┐
+ │ Feature Extractor    │  ← Extracts behavioral features (Layer 2)
+ └──────────────────────┘
+        │
+        ▼
+ ┌──────────────────────┐
+ │ LightGBM Classifier  │  ← ML model flags anomalies (Layer 3)
+ └──────────────────────┘
+        │
+        ▼
+┌───────────────────────┐
+│ Log Decision & Action │ → Block or Allow request
+└───────────────────────┘
+
+```
+
+> 🛡️ SecureY — Bridging the gap between static firewalls and adaptive cybersecurity.
